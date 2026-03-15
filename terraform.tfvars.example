@@ -1,0 +1,38 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# terraform.tfvars — copy this to terraform.tfvars and fill in your values.
+# Do NOT commit terraform.tfvars to git (it contains secrets).
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── OCI Identity ─────────────────────────────────────────────────────────────
+# Find these in the OCI Console:
+#   Top-right avatar → Tenancy: <name>  →  copy "OCID"
+tenancy_ocid = "ocid1.tenancy.oc1..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+#   Top-right avatar → My Profile → copy "OCID"
+user_ocid = "ocid1.user.oc1..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+#   My Profile → API Keys → the fingerprint shown next to your key
+fingerprint = "xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"
+
+#   Path to the PEM private key you downloaded when creating your API key
+private_key_path = "~/.oci/oci_api_key.pem"
+
+# ── Region & Availability Domain ─────────────────────────────────────────────
+# Your home region (where Always Free resources live).
+# Examples: eu-amsterdam-1 | eu-frankfurt-1 | us-ashburn-1 | ap-osaka-1
+region = "eu-amsterdam-1"
+
+# To list ADs in your region run:
+#   oci iam availability-domain list --query "data[*].name"
+availability_domain = "Uocm:EU-AMSTERDAM-1-AD-1"
+
+# ── SSH Keys ──────────────────────────────────────────────────────────────────
+# AmneziaVPN connects over SSH to install itself.
+# Generate a key pair if you don't have one:
+#   ssh-keygen -t rsa -b 4096 -f ~/.ssh/amnezia_rsa
+ssh_public_key_path = "~/.ssh/id_rsa.pub"
+
+# ── Optional overrides ────────────────────────────────────────────────────────
+# prefix      = "amnezia"       # Used in resource display names
+# vcn_cidr    = "10.0.0.0/16"
+# subnet_cidr = "10.0.1.0/24"
