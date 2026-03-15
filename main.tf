@@ -13,13 +13,15 @@ terraform {
 # Provider
 # ─────────────────────────────────────────────
 
+# for provider configuration samples look inside terraform.tfvars.example,
+# and uncomment  the configuration values -> variables mappings below
 provider "oci" {
   # tenancy_ocid     = var.tenancy_ocid
   # user_ocid        = var.user_ocid
   # fingerprint      = var.fingerprint
   # private_key_path = pathexpand(var.private_key_path)
   # region           = var.region
-  config_file_profile = "DEFAULT"
+  config_file_profile = var.oci_profile
   region              = var.region
 }
 

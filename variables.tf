@@ -28,6 +28,12 @@ variable "region" {
   type        = string
 }
 
+variable "oci_profile" {
+  description = "OCI profile name, from oci cli configuration"
+  type        = string
+  default     = "DEFAULT"
+}
+
 # ─────────────────────────────────────────────
 # Instance
 # ─────────────────────────────────────────────

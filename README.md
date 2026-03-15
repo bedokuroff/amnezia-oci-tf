@@ -10,7 +10,7 @@ ready to run [AmneziaVPN](https://amnezia.org) in self-hosted mode.
 | VCN | `10.0.0.0/16` |
 | Internet Gateway | Attached to VCN |
 | Route Table | Default route → IGW |
-| Security List | SSH 22, AmneziaWG 51820+35218/UDP, OpenVPN 1194 TCP+UDP, HTTPS 443 TCP+UDP, HTTP 80 |
+| Security List | SSH 22, AmneziaWG 51820/UDP, OpenVPN 1194 TCP+UDP, HTTPS 443 TCP+UDP, HTTP 80 |
 | Public Subnet | `10.0.1.0/24` |
 | Compute Instance | VM.Standard.E2.1.Micro · Ubuntu 22.04 x86-64 · 50 GB boot volume |
 

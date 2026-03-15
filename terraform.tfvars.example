@@ -3,34 +3,50 @@
 # Do NOT commit terraform.tfvars to git (it contains secrets).
 # ─────────────────────────────────────────────────────────────────────────────
 
-# ── OCI Identity ─────────────────────────────────────────────────────────────
-# Find these in the OCI Console:
-#   Top-right avatar → Tenancy: <name>  →  copy "OCID"
-tenancy_ocid = "ocid1.tenancy.oc1..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+# ── OCI Authentication ────────────────────────────────────────────────────────
+#
+# Two approaches — pick one:
+#
+# OPTION A (recommended): Use a named profile from ~/.oci/config
+#   Run `oci setup config` to generate the config file, then set the profile
+#   name here. "DEFAULT" is the profile name created by `oci setup config`.
+#   This is what the provider in main.tf uses by default.
+#
+oci_profile = "DEFAULT"
 
-#   Top-right avatar → My Profile → copy "OCID"
-user_ocid = "ocid1.user.oc1..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-
-#   My Profile → API Keys → the fingerprint shown next to your key
-fingerprint = "xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"
-
-#   Path to the PEM private key you downloaded when creating your API key
-private_key_path = "~/.oci/oci_api_key.pem"
+#
+# OPTION B: Pass credentials explicitly as variables.
+#   Uncomment the block below and comment out oci_profile above.
+#   Also uncomment the corresponding lines in the provider block in main.tf.
+#
+#   Find these values with:
+#     cat ~/.oci/config
+#
+# tenancy_ocid     = "ocid1.tenancy.oc1..xxxx"
+# user_ocid        = "ocid1.user.oc1..xxxx"
+# fingerprint      = "xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"
+# private_key_path = "/home/youruser/.oci/oci_api_key.pem"  # must be absolute path, no ~
+#
 
 # ── Region & Availability Domain ─────────────────────────────────────────────
 # Your home region (where Always Free resources live).
 # Examples: eu-amsterdam-1 | eu-frankfurt-1 | us-ashburn-1 | ap-osaka-1
+#
+# Note: if using OPTION A, region is already in ~/.oci/config, but Terraform
+# still needs it explicitly here to target the correct OCI endpoint.
 region = "eu-amsterdam-1"
 
-# To list ADs in your region run:
+# To list availability domains in your region run:
 #   oci iam availability-domain list --query "data[*].name"
 availability_domain = "Uocm:EU-AMSTERDAM-1-AD-1"
 
-# ── SSH Keys ──────────────────────────────────────────────────────────────────
-# AmneziaVPN connects over SSH to install itself.
-# Generate a key pair if you don't have one:
-#   ssh-keygen -t rsa -b 4096 -f ~/.ssh/amnezia_rsa
-ssh_public_key_path = "~/.ssh/id_rsa.pub"
+# ── SSH Key ───────────────────────────────────────────────────────────────────
+# AmneziaVPN connects over SSH to install itself on the server.
+# Must be an ed25519 key or a PEM-format RSA key — OpenSSH RSA format won't work.
+#
+# Generate one with:
+#   ssh-keygen -t ed25519 -f ~/.ssh/amnezia_ed25519 -N ""
+ssh_public_key_path = "~/.ssh/amnezia_ed25519.pub"
 
 # ── Optional overrides ────────────────────────────────────────────────────────
 # prefix      = "amnezia"       # Used in resource display names
